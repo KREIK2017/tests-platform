@@ -50,15 +50,16 @@
 
     <div class="card shadow-sm border-0">
         <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                 <h2 class="h5 mb-0">
                     <i class="bi bi-question-circle me-2"></i>{{ __('tests.admin.questions_block') }}
                     <span class="badge text-bg-light ms-1">{{ $test->questions->count() }}</span>
                 </h2>
-                {{-- Question CRUD will land in Stage 5 --}}
-                <span class="btn btn-primary disabled" aria-disabled="true">
-                    <i class="bi bi-plus-circle me-1"></i>{{ __('tests.actions.add_question') }}
-                </span>
+                @can('create', [App\Models\Question::class, $test])
+                    <a href="{{ route('admin.tests.questions.create', $test) }}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-1"></i>{{ __('tests.actions.add_question') }}
+                    </a>
+                @endcan
             </div>
 
             @if ($test->questions->isEmpty())
@@ -67,18 +68,95 @@
                     {{ __('tests.messages.no_questions') }}
                 </p>
             @else
-                <ol class="list-group list-group-numbered list-group-flush">
-                    @foreach ($test->questions as $question)
-                        <li class="list-group-item d-flex justify-content-between align-items-start py-3 px-0">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-semibold">{{ $question->text }}</div>
-                                <small class="text-muted">
-                                    {{ __('tests.fields.questions_count') }}: —
-                                </small>
+                <div class="accordion" id="questionsAccordion">
+                    @foreach ($test->questions as $i => $question)
+                        @php($collapseId = 'qBody-' . $question->id)
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="qHead-{{ $question->id }}">
+                                <button class="accordion-button collapsed" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#{{ $collapseId }}"
+                                        aria-expanded="false" aria-controls="{{ $collapseId }}">
+                                    <span class="badge text-bg-secondary me-2">{{ $i + 1 }}</span>
+                                    <span class="fw-semibold">{{ $question->text }}</span>
+                                </button>
+                            </h2>
+                            <div id="{{ $collapseId }}" class="accordion-collapse collapse"
+                                 aria-labelledby="qHead-{{ $question->id }}" data-bs-parent="#questionsAccordion">
+                                <div class="accordion-body">
+                                    <div class="d-flex justify-content-end gap-2 mb-3">
+                                        @can('update', $question)
+                                            <a href="{{ route('admin.questions.edit', $question) }}"
+                                               class="btn btn-sm btn-outline-secondary">
+                                                <i class="bi bi-pencil me-1"></i>{{ __('messages.common.edit') }}
+                                            </a>
+                                        @endcan
+                                        @can('delete', $question)
+                                            <form method="POST" action="{{ route('admin.questions.destroy', $question) }}"
+                                                  onsubmit="return confirm('{{ __('tests.admin.confirm_delete_question') }}');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                    <i class="bi bi-trash me-1"></i>{{ __('messages.common.delete') }}
+                                                </button>
+                                            </form>
+                                        @endcan
+                                    </div>
+
+                                    <h3 class="h6 text-uppercase text-muted">{{ __('tests.admin.answers_block') }}</h3>
+
+                                    @if ($question->answers->isEmpty())
+                                        <p class="text-muted small mb-0">{{ __('messages.common.empty') }}</p>
+                                    @else
+                                        <ul class="list-group list-group-flush">
+                                            @foreach ($question->answers as $answer)
+                                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                                    <span>
+                                                        @if ($answer->is_correct)
+                                                            <i class="bi bi-check-circle-fill text-success me-2"
+                                                               title="{{ __('tests.answers.fields.is_correct') }}"></i>
+                                                        @else
+                                                            <i class="bi bi-circle text-muted me-2"></i>
+                                                        @endif
+                                                        {{ $answer->text }}
+                                                    </span>
+                                                    <span class="d-flex gap-1">
+                                                        @can('update', $answer)
+                                                            <a href="{{ route('admin.answers.edit', $answer) }}"
+                                                               class="btn btn-sm btn-link link-secondary p-1"
+                                                               title="{{ __('messages.common.edit') }}">
+                                                                <i class="bi bi-pencil"></i>
+                                                            </a>
+                                                        @endcan
+                                                        @can('delete', $answer)
+                                                            <form method="POST"
+                                                                  action="{{ route('admin.answers.destroy', $answer) }}"
+                                                                  onsubmit="return confirm('{{ __('tests.admin.confirm_delete_answer') }}');">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                        class="btn btn-sm btn-link link-danger p-1"
+                                                                        title="{{ __('messages.common.delete') }}">
+                                                                    <i class="bi bi-trash"></i>
+                                                                </button>
+                                                            </form>
+                                                        @endcan
+                                                    </span>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+
+                                    @can('create', [App\Models\Answer::class, $question])
+                                        <a href="{{ route('admin.questions.answers.create', $question) }}"
+                                           class="btn btn-sm btn-outline-primary mt-3">
+                                            <i class="bi bi-plus-circle me-1"></i>{{ __('tests.admin.add_answer') }}
+                                        </a>
+                                    @endcan
+                                </div>
                             </div>
-                        </li>
+                        </div>
                     @endforeach
-                </ol>
+                </div>
             @endif
         </div>
     </div>

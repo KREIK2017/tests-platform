@@ -49,7 +49,11 @@ class TestController extends Controller
     {
         $this->authorize('view', $test);
 
-        $test->load(['user', 'questions' => fn ($q) => $q->orderBy('order')->orderBy('id')]);
+        $test->load([
+            'user',
+            'questions' => fn ($q) => $q->orderBy('order')->orderBy('id'),
+            'questions.answers' => fn ($q) => $q->orderBy('id'),
+        ]);
 
         return view('admin.tests.show', compact('test'));
     }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AnswerController as AdminAnswerController;
+use App\Http\Controllers\Admin\QuestionController as AdminQuestionController;
 use App\Http\Controllers\Admin\TestController as AdminTestController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\ProfileController;
@@ -26,6 +28,14 @@ Route::middleware(['auth', 'verified', 'role:admin'])
     ->name('admin.')
     ->group(function () {
         Route::resource('tests', AdminTestController::class);
+
+        Route::resource('tests.questions', AdminQuestionController::class)
+            ->shallow()
+            ->except(['index', 'show']);
+
+        Route::resource('questions.answers', AdminAnswerController::class)
+            ->shallow()
+            ->except(['index', 'show']);
     });
 
 require __DIR__.'/auth.php';
