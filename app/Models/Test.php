@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Database\Factories\TestFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,6 +12,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Fillable(['title', 'description', 'user_id', 'is_published'])]
 class Test extends Model
 {
+    /** @use HasFactory<TestFactory> */
+    use HasFactory;
+
     protected function casts(): array
     {
         return [

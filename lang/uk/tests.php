@@ -79,6 +79,19 @@ return [
         'question_updated' => 'Питання оновлено.',
         'question_deleted' => 'Питання видалено.',
         'attempt_finished' => 'Тест завершено. Ваш результат: :score з :total.',
+        'confirm_delete' => 'Видалити тест ":title"? Усі питання й варіанти відповідей буде втрачено.',
+        'no_questions' => 'У цьому тесті ще немає питань.',
+    ],
+
+    'admin' => [
+        'index_title' => 'Керування тестами',
+        'index_lead' => 'Перегляд, створення, редагування та видалення тестів.',
+        'create_title' => 'Новий тест',
+        'edit_title' => 'Редагування тесту',
+        'show_title' => 'Тест: :title',
+        'questions_block' => 'Питання тесту',
+        'placeholder_title' => 'Наприклад: Основи PHP',
+        'placeholder_description' => 'Короткий опис того, що перевіряє цей тест…',
     ],
 
 ];

@@ -40,6 +40,14 @@
                                 {{ __('messages.nav.dashboard') }}
                             </a>
                         </li>
+                        @if (auth()->user()->isAdmin())
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('admin.tests.*') ? 'active' : '' }}"
+                                   href="{{ route('admin.tests.index') }}">
+                                    {{ __('messages.nav.admin_tests') }}
+                                </a>
+                            </li>
+                        @endif
                     @endauth
                 </ul>
 
@@ -92,6 +100,15 @@
 
     <main class="app-main">
         <div class="container">
+            @foreach (['success' => 'success', 'error' => 'danger', 'warning' => 'warning', 'info' => 'info'] as $key => $variant)
+                @if (session($key))
+                    <div class="alert alert-{{ $variant }} alert-dismissible fade show" role="alert">
+                        {{ session($key) }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+            @endforeach
+
             @if (session('status'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ session('status') }}

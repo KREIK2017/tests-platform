@@ -25,9 +25,9 @@
                         <div class="display-6 text-primary mb-2"><i class="bi bi-plus-circle"></i></div>
                         <h5 class="card-title">{{ __('messages.dashboard.cards.create_test') }}</h5>
                         <p class="card-text text-muted">{{ __('messages.dashboard.cards.create_test_lead') }}</p>
-                        <span class="btn btn-primary disabled" aria-disabled="true">
+                        <a href="{{ route('admin.tests.create') }}" class="btn btn-primary">
                             {{ __('messages.common.create') }}
-                        </span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -37,9 +37,9 @@
                         <div class="display-6 text-primary mb-2"><i class="bi bi-list-check"></i></div>
                         <h5 class="card-title">{{ __('messages.dashboard.cards.all_tests') }}</h5>
                         <p class="card-text text-muted">{{ __('messages.dashboard.cards.all_tests_lead') }}</p>
-                        <span class="btn btn-outline-primary disabled" aria-disabled="true">
+                        <a href="{{ route('admin.tests.index') }}" class="btn btn-outline-primary">
                             {{ __('messages.nav.admin_tests') }}
-                        </span>
+                        </a>
                     </div>
                 </div>
             </div>

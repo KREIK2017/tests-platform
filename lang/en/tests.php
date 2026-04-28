@@ -79,6 +79,19 @@ return [
         'question_updated' => 'Question updated.',
         'question_deleted' => 'Question deleted.',
         'attempt_finished' => 'Test finished. Your score: :score of :total.',
+        'confirm_delete' => 'Delete test ":title"? All questions and answers will be lost.',
+        'no_questions' => 'This test has no questions yet.',
+    ],
+
+    'admin' => [
+        'index_title' => 'Manage tests',
+        'index_lead' => 'Browse, create, edit and delete tests.',
+        'create_title' => 'New test',
+        'edit_title' => 'Edit test',
+        'show_title' => 'Test: :title',
+        'questions_block' => 'Test questions',
+        'placeholder_title' => 'For example: PHP Basics',
+        'placeholder_description' => 'A short description of what this test covers…',
     ],
 
 ];
