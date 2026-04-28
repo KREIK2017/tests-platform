@@ -1,3 +1,43 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Bootstrap 5 is loaded via CDN in layouts/app.blade.php.
+   Project-specific styles go below. */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f7f8fa;
+}
+
+main.app-main {
+    flex: 1 0 auto;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
+
+.brand-mark {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.locale-switch .btn {
+    --bs-btn-padding-y: 0.15rem;
+    --bs-btn-padding-x: 0.5rem;
+    --bs-btn-font-size: 0.8rem;
+}
+
+.locale-switch .btn.active {
+    pointer-events: none;
+}
+
+.test-card {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.test-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.075);
+}
+
+.hero {
+    padding: 4rem 0 3rem;
+}
