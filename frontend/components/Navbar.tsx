@@ -21,20 +21,20 @@ export default function Navbar() {
     pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <nav className="sticky top-0 z-30 bg-white/90 backdrop-blur border-b border-slate-200">
+    <nav className="sticky top-0 z-50 glass">
       <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between gap-4">
-        <Link href="/" className="font-semibold text-slate-900 flex items-center gap-2">
-          <span className="text-indigo-600">●</span>
+        <Link href="/" className="font-bold text-xl text-foreground flex items-center gap-2 group">
+          <div className="h-4 w-4 rounded-full bg-gradient-to-tr from-primary to-pink-300 group-hover:scale-125 transition-transform shadow-sm" />
           {t("app.name")}
         </Link>
 
-        <div className="flex items-center gap-1 text-sm">
+        <div className="hidden md:flex items-center gap-1 text-sm font-medium">
           {!loading && user && (
             <>
               <Link
                 href="/dashboard"
-                className={`px-3 py-1.5 rounded ${
-                  isActive("/dashboard") ? "bg-slate-100 text-slate-900" : "text-slate-600 hover:text-slate-900"
+                className={`px-4 py-2 rounded-full transition-all ${
+                  isActive("/dashboard") ? "bg-primary/10 text-primary" : "text-muted hover:text-primary"
                 }`}
               >
                 {t("nav.dashboard")}
@@ -42,8 +42,8 @@ export default function Navbar() {
               {user.role === "admin" ? (
                 <Link
                   href="/admin/tests"
-                  className={`px-3 py-1.5 rounded ${
-                    isActive("/admin/tests") ? "bg-slate-100 text-slate-900" : "text-slate-600 hover:text-slate-900"
+                  className={`px-4 py-2 rounded-full transition-all ${
+                    isActive("/admin/tests") ? "bg-primary/10 text-primary" : "text-muted hover:text-primary"
                   }`}
                 >
                   {t("nav.admin_tests")}
@@ -51,10 +51,10 @@ export default function Navbar() {
               ) : (
                 <Link
                   href="/tests"
-                  className={`px-3 py-1.5 rounded ${
+                  className={`px-4 py-2 rounded-full transition-all ${
                     pathname === "/tests" || pathname.startsWith("/tests/")
-                      ? "bg-slate-100 text-slate-900"
-                      : "text-slate-600 hover:text-slate-900"
+                      ? "bg-primary/10 text-primary"
+                      : "text-muted hover:text-primary"
                   }`}
                 >
                   {t("nav.tests")}
@@ -62,8 +62,8 @@ export default function Navbar() {
               )}
               <Link
                 href="/attempts"
-                className={`px-3 py-1.5 rounded ${
-                  isActive("/attempts") ? "bg-slate-100 text-slate-900" : "text-slate-600 hover:text-slate-900"
+                className={`px-4 py-2 rounded-full transition-all ${
+                  isActive("/attempts") ? "bg-primary/10 text-primary" : "text-muted hover:text-primary"
                 }`}
               >
                 {user.role === "admin" ? t("nav.admin_attempts") : t("nav.my_attempts")}
@@ -72,34 +72,37 @@ export default function Navbar() {
           )}
         </div>
 
-        <div className="flex items-center gap-3">
-          <div className="inline-flex rounded border border-slate-200 overflow-hidden text-xs">
+        <div className="flex items-center gap-4">
+          <div className="inline-flex rounded-full border border-card-border overflow-hidden text-[10px] font-bold tracking-wider ring-1 ring-primary/5">
             {SUPPORTED_LOCALES.map((code) => (
               <button
                 key={code}
                 type="button"
                 onClick={() => setLocale(code as Locale)}
                 aria-pressed={locale === code}
-                className={`px-2 py-1 ${
+                className={`px-3 py-1.5 transition-all ${
                   locale === code
-                    ? "bg-slate-900 text-white"
-                    : "bg-white text-slate-600 hover:bg-slate-50"
+                    ? "bg-primary text-white"
+                    : "bg-white text-muted hover:text-primary"
                 }`}
               >
-                {code === "uk" ? "UA" : "EN"}
+                {code.toUpperCase()}
               </button>
             ))}
           </div>
 
           {loading ? (
-            <span className="text-sm text-slate-400">…</span>
+            <div className="h-8 w-8 rounded-full border-2 border-primary border-t-transparent animate-spin" />
           ) : user ? (
-            <div className="flex items-center gap-2 text-sm">
-              <span className="text-slate-600 hidden sm:inline">{user.name}</span>
+            <div className="flex items-center gap-4 text-sm">
+              <div className="hidden sm:flex flex-col items-end">
+                <span className="font-semibold text-foreground leading-none">{user.name}</span>
+                <span className="text-[10px] text-muted uppercase tracking-tighter">{user.role}</span>
+              </div>
               <button
                 type="button"
                 onClick={handleLogout}
-                className="px-3 py-1.5 rounded border border-slate-200 hover:bg-slate-50"
+                className="px-4 py-2 rounded-full border border-card-border font-medium hover:bg-red-50 hover:text-red-600 hover:border-red-100 transition-all active:scale-95"
               >
                 {t("nav.logout")}
               </button>
@@ -108,13 +111,13 @@ export default function Navbar() {
             <div className="flex items-center gap-2 text-sm">
               <Link
                 href="/login"
-                className="px-3 py-1.5 rounded border border-slate-200 hover:bg-slate-50"
+                className="px-4 py-2 rounded-full font-medium text-muted hover:text-primary transition-colors"
               >
                 {t("nav.login")}
               </Link>
               <Link
                 href="/register"
-                className="px-3 py-1.5 rounded bg-indigo-600 text-white hover:bg-indigo-700"
+                className="btn-primary"
               >
                 {t("nav.register")}
               </Link>

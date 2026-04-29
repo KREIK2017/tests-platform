@@ -59,11 +59,11 @@ export default function AdminTestsIndexPage() {
           <h1 className="text-2xl font-semibold">
             {t("tests.admin.index_title")}
           </h1>
-          <p className="text-slate-600">{t("tests.admin.index_lead")}</p>
+          <p className="text-muted">{t("tests.admin.index_lead")}</p>
         </div>
         <Link
           href="/admin/tests/create"
-          className="rounded bg-indigo-600 text-white px-4 py-2 hover:bg-indigo-700"
+          className="btn-primary"
         >
           + {t("tests.actions.create")}
         </Link>
@@ -82,33 +82,33 @@ export default function AdminTestsIndexPage() {
           {t("tests.messages.no_tests")}
         </div>
       ) : (
-        <div className="rounded-lg border border-slate-200 bg-white shadow-sm overflow-hidden">
+        <div className="rounded-[2rem] border border-card-border bg-card-bg shadow-sm overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 text-slate-700 text-left">
+            <thead className="bg-primary/5 text-muted text-left border-b border-card-border">
               <tr>
-                <th className="px-4 py-3 font-medium">
+                <th className="px-6 py-4 font-bold uppercase tracking-wider text-[11px]">
                   {t("tests.fields.title")}
                 </th>
-                <th className="px-4 py-3 font-medium">
+                <th className="px-6 py-4 font-bold uppercase tracking-wider text-[11px]">
                   {t("tests.fields.is_published")}
                 </th>
-                <th className="px-4 py-3 font-medium text-right">
+                <th className="px-6 py-4 font-bold uppercase tracking-wider text-[11px] text-right">
                   {t("common.actions")}
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-card-border">
               {tests.map((test) => (
-                <tr key={test.id} className="border-t border-slate-100">
-                  <td className="px-4 py-3">
+                <tr key={test.id} className="table-row-hover">
+                  <td className="px-6 py-4">
                     <Link
                       href={`/admin/tests/${test.id}`}
-                      className="font-medium hover:text-indigo-700"
+                      className="font-bold text-foreground hover:text-primary transition-colors"
                     >
                       {test.title}
                     </Link>
                     {typeof test.questions_count === "number" && (
-                      <span className="ml-2 text-xs text-slate-500">
+                      <span className="ml-2 text-xs text-muted font-medium">
                         · {test.questions_count}
                       </span>
                     )}
@@ -127,7 +127,7 @@ export default function AdminTestsIndexPage() {
                   <td className="px-4 py-3 text-right space-x-2">
                     <Link
                       href={`/admin/tests/${test.id}`}
-                      className="text-indigo-600 hover:text-indigo-800"
+                      className="text-primary hover:text-primary-bold"
                     >
                       {t("tests.actions.view")}
                     </Link>

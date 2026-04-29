@@ -80,7 +80,7 @@ export default function AdminTestCreatePage() {
             id="title"
             {...field("title")}
             placeholder={t("tests.admin.placeholder_title")}
-            className="w-full rounded border border-slate-300 px-3 py-2"
+            className="block w-full rounded-2xl border-card-border bg-white py-3 px-4 text-foreground shadow-sm focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition-all"
           />
           {errors.title && (
             <p className="text-sm text-red-600 mt-1">{errors.title.message}</p>
@@ -96,7 +96,7 @@ export default function AdminTestCreatePage() {
             rows={4}
             {...field("description")}
             placeholder={t("tests.admin.placeholder_description")}
-            className="w-full rounded border border-slate-300 px-3 py-2"
+            className="block w-full rounded-2xl border-card-border bg-white py-3 px-4 text-foreground shadow-sm focus:ring-2 focus:ring-primary/40 focus:border-primary outline-none transition-all"
           />
         </div>
 
@@ -105,7 +105,7 @@ export default function AdminTestCreatePage() {
             id="is_published"
             type="checkbox"
             {...field("is_published")}
-            className="h-4 w-4"
+            className="h-4 w-4 text-primary focus:ring-primary"
           />
           <label htmlFor="is_published" className="text-sm">
             {t("tests.fields.is_published")}
@@ -116,16 +116,17 @@ export default function AdminTestCreatePage() {
           <button
             type="submit"
             disabled={submitting}
-            className="rounded bg-indigo-600 text-white px-4 py-2 hover:bg-indigo-700 disabled:opacity-50"
+            className="btn-primary w-full sm:w-auto"
           >
             {submitting ? t("common.loading") : t("common.create")}
           </button>
-          <Link
-            href="/admin/tests"
-            className="rounded border border-slate-300 px-4 py-2 hover:bg-slate-50"
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className="btn-secondary w-full sm:w-auto"
           >
             {t("common.cancel")}
-          </Link>
+          </button>
         </div>
       </form>
     </div>

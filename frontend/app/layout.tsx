@@ -1,23 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { AuthProvider } from "@/app/context/AuthContext";
 import { I18nProvider } from "@/app/context/I18nContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin", "cyrillic"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: "Tests Platform",
-  description: "Knowledge testing platform",
+  title: "Tests Platform | Знання — це сила",
+  description: "Сучасна платформа для тестування знань. Створюй тести, перевіряй себе та отримуй результати миттєво.",
 };
 
 export default function RootLayout({
@@ -26,15 +21,25 @@ export default function RootLayout({
   return (
     <html
       lang="uk"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.className} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
+      <body className="min-h-screen flex flex-col bg-background text-foreground selection:bg-indigo-100 selection:text-indigo-900 dark:selection:bg-indigo-900 dark:selection:text-indigo-100">
         <I18nProvider>
           <AuthProvider>
             <Navbar />
-            <main className="flex-1">{children}</main>
-            <footer className="border-t border-slate-200 bg-white py-4 text-center text-xs text-slate-500">
-              © {new Date().getFullYear()} Tests Platform
+            <main className="flex-1 relative">
+              {children}
+            </main>
+            <footer className="border-t border-card-border bg-card-bg/50 backdrop-blur-sm py-8">
+              <div className="mx-auto max-w-6xl px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div className="flex items-center gap-2 font-bold text-muted text-sm">
+                  <div className="h-2 w-2 rounded-full bg-indigo-600/50" />
+                  Tests Platform
+                </div>
+                <p className="text-xs text-muted">
+                  © {new Date().getFullYear()} Всі права захищено. Створено з ❤️ для тестування знань.
+                </p>
+              </div>
             </footer>
           </AuthProvider>
         </I18nProvider>
