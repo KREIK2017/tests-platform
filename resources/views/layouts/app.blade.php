@@ -40,6 +40,20 @@
                                 {{ __('messages.nav.dashboard') }}
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('tests.*') ? 'active' : '' }}"
+                               href="{{ route('tests.index') }}">
+                                {{ __('messages.nav.tests') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('attempts.*') ? 'active' : '' }}"
+                               href="{{ route('attempts.index') }}">
+                                {{ auth()->user()->isAdmin()
+                                    ? __('messages.nav.admin_attempts')
+                                    : __('messages.nav.my_attempts') }}
+                            </a>
+                        </li>
                         @if (auth()->user()->isAdmin())
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('admin.tests.*') ? 'active' : '' }}"

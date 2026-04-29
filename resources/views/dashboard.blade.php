@@ -49,9 +49,9 @@
                         <div class="display-6 text-primary mb-2"><i class="bi bi-bar-chart"></i></div>
                         <h5 class="card-title">{{ __('messages.dashboard.cards.attempts') }}</h5>
                         <p class="card-text text-muted">{{ __('messages.dashboard.cards.attempts_lead') }}</p>
-                        <span class="btn btn-outline-primary disabled" aria-disabled="true">
+                        <a href="{{ route('attempts.index') }}" class="btn btn-outline-primary">
                             {{ __('messages.nav.admin_attempts') }}
-                        </span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -65,9 +65,9 @@
                         <div class="display-6 text-primary mb-2"><i class="bi bi-journal-text"></i></div>
                         <h5 class="card-title">{{ __('messages.dashboard.cards.available_tests') }}</h5>
                         <p class="card-text text-muted">{{ __('messages.dashboard.cards.available_tests_lead') }}</p>
-                        <span class="btn btn-primary disabled" aria-disabled="true">
+                        <a href="{{ route('tests.index') }}" class="btn btn-primary">
                             {{ __('messages.nav.tests') }}
-                        </span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -77,9 +77,9 @@
                         <div class="display-6 text-primary mb-2"><i class="bi bi-clock-history"></i></div>
                         <h5 class="card-title">{{ __('messages.dashboard.cards.my_attempts') }}</h5>
                         <p class="card-text text-muted">{{ __('messages.dashboard.cards.my_attempts_lead') }}</p>
-                        <span class="btn btn-outline-primary disabled" aria-disabled="true">
+                        <a href="{{ route('attempts.index') }}" class="btn btn-outline-primary">
                             {{ __('messages.nav.my_attempts') }}
-                        </span>
+                        </a>
                     </div>
                 </div>
             </div>
